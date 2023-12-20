@@ -54,5 +54,42 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     console.log("All Videos:", videosArray);
     console.log("Details logged from content script!");
+    generateAndDownloadPDF(
+      channelName,
+      channelDescription,
+      numberOfVideos,
+      playlistTitle,
+      videosArray
+    );
   }
 });
+
+function generateAndDownloadPDF(
+  channelName,
+  channelDescription,
+  numberOfVideos,
+  playlistTitle,
+  videosArray
+) {
+  const docDefinition = {
+    content: [
+      { text: "Content script details:", style: "header" },
+      { text: "Channel Name: " + channelName },
+      { text: "Channel Description: " + channelDescription },
+      { text: "Number of Videos: " + numberOfVideos },
+      { text: "Playlist Title: " + playlistTitle, style: "subheader" },
+      { text: "All Videos:", style: "subheader" },
+      ...videosArray.map((video, index) => {
+        return {
+          text: `Video ${index + 1}: ${video.videoTitle} - ${video.videoName}`,
+        };
+      }),
+    ],
+    styles: {
+      header: { fontSize: 18, bold: true },
+      subheader: { fontSize: 16, bold: true },
+    },
+  };
+
+  pdfMake.createPdf(docDefinition).download("content_script_details.pdf");
+}

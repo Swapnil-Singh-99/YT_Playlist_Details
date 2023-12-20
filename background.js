@@ -1,5 +1,11 @@
-chrome.browserAction.onClicked.addListener(function (tab) {
-  chrome.tabs.executeScript({
-    file: "content.js",
+chrome.action.onClicked.addListener(function (tab) {
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: executeContentScript,
   });
 });
+
+function executeContentScript() {
+  // Your content script logic goes here
+  console.log("Content script executed!");
+}
