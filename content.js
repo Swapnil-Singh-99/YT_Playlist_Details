@@ -54,42 +54,34 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     console.log("All Videos:", videosArray);
     console.log("Details logged from content script!");
-    generateAndDownloadPDF(
+    const data = [
       channelName,
       channelDescription,
       numberOfVideos,
       playlistTitle,
-      videosArray
-    );
+      videosArray,
+    ];
+    let xml = new XMLHttpRequest();
+    xml.open("POST", "https://localhost:3000", true);
+    xml.setRequestHeader("Content-Type", "application/json; charset = UTF-8"); //t think this is main problem cause your error
+    xml.onreadystatechange = function () {
+      if (xml.readyState == 4) {
+        console.log("Success!");
+      }
+    };
+    console.log(xml);
+    // chrome.runtime.sendMessage(
+    //   { action: "sendData", data: data },
+    //   function (response) {
+    //     console.log("Response from background script:", response);
+    //   }
+    // );
+    // generateAndDownloadPDF(
+    //   channelName,
+    //   channelDescription,
+    //   numberOfVideos,
+    //   playlistTitle,
+    //   videosArray
+    // );
   }
 });
-
-function generateAndDownloadPDF(
-  channelName,
-  channelDescription,
-  numberOfVideos,
-  playlistTitle,
-  videosArray
-) {
-  const docDefinition = {
-    content: [
-      { text: "Content script details:", style: "header" },
-      { text: "Channel Name: " + channelName },
-      { text: "Channel Description: " + channelDescription },
-      { text: "Number of Videos: " + numberOfVideos },
-      { text: "Playlist Title: " + playlistTitle, style: "subheader" },
-      { text: "All Videos:", style: "subheader" },
-      ...videosArray.map((video, index) => {
-        return {
-          text: `Video ${index + 1}: ${video.videoTitle} - ${video.videoName}`,
-        };
-      }),
-    ],
-    styles: {
-      header: { fontSize: 18, bold: true },
-      subheader: { fontSize: 16, bold: true },
-    },
-  };
-
-  pdfMake.createPdf(docDefinition).download("content_script_details.pdf");
-}
