@@ -12,21 +12,22 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/generate-pdf", async (req, res) => {
-  // Extract data from the request
-  const {
-    channelName,
-    channelDescription,
-    numberOfVideos,
-    playlistTitle,
-    videosArray,
-  } = req.body;
+  try {
+    // Extract data from the request
+    const {
+      channelName,
+      channelDescription,
+      numberOfVideos,
+      playlistTitle,
+      videosArray,
+    } = req.body;
 
-  // Launch a headless browser
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+    // Launch a headless browser
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  // Set content and generate PDF
-  const contentHTML = `
+    // Set content and generate PDF
+    const contentHTML = `
     <div>
       <div style="font-size: 18px; font-weight: bold;">Content script details:</div>
       <div>Channel Name: ${channelName}</div>
@@ -44,16 +45,19 @@ app.post("/generate-pdf", async (req, res) => {
     </div>
   `;
 
-  await page.setContent(contentHTML);
-  const pdfBuffer = await page.pdf();
+    await page.setContent(contentHTML);
+    const pdfBuffer = await page.pdf();
 
-  // Close the browser
-  await browser.close();
+    // Close the browser
+    await browser.close();
 
-  // Send the PDF as a response
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader("Content-Disposition", "attachment; filename=generated.pdf");
-  res.send(pdfBuffer);
+    // Send the PDF as a response
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=generated.pdf");
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 app.post("/", async (req, res) => {
