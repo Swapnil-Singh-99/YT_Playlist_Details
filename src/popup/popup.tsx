@@ -46,13 +46,12 @@ const PlaylistLogger = () => {
 
   return (
     <div id="popup-container">
-      <img
-        src="https://cdn3.iconfinder.com/data/icons/social-network-30/512/social-06-512.png"
-        alt=""
-      />
-      <h1>YT Playlist Logger</h1>
+      <div className="head">
+        <img src="YD_logo.png" alt="" />
+        <h1>Youtube Digest</h1>
+      </div>
       <button id="logDetails" onClick={handleLogDetails}>
-        Download PDF
+        <img className="download_img" src="download.png" alt="" /> Download PDF
       </button>
     </div>
   );
