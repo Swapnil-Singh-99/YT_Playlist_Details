@@ -1,18 +1,18 @@
 {
   "manifest_version": 3,
-  "name": "YT Playist Logger",
-  "description": "This helps you convert a youtube playlists into pdf checklists.",
+  "name": "Youtube Digest",
+  "description": "Converting youtube playlists to pdf checklists.",
   "version": "1.0.0",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "YT Playist Logger",
-    "default_icon": "icon_new.png"
+    "default_title": "Youtube Digest",
+    "default_icon": "YD_logo.png"
   },
   "permissions": ["tabs", "bookmarks", "storage", "identity"],
   "icons": {
-    "16": "icon_new.png",
-    "48": "icon_new.png",
-    "128": "icon_new.png"
+    "16": "YD_logo.png",
+    "48": "YD_logo.png",
+    "128": "YD_logo.png"
   },
   "options_page": "options.html",
   "background": {
