@@ -1,9 +1,9 @@
 {
-  "name": "reactjs-chrome",
-  "author": "Himanshu Batra",
-  "version": "1.0.1",
+  "name": "YoutubeDigest",
+  "author": "",
+  "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "watch": "webpack --watch --progress --config webpack.dev.js",
     "build": "webpack --watch --progress --config webpack.prod.js"
