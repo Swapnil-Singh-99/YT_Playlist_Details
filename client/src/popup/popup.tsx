@@ -18,7 +18,7 @@ const PlaylistLogger = () => {
 
   const generateAndDownloadPDF = (data) => {
     console.log(data);
-    fetch("http://localhost:3000/generate-pdf", {
+    fetch("https://youtubedigest.onrender.com/generate-pdf", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
