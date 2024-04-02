@@ -11,6 +11,10 @@ app.use(cors());
 // Middleware to parse JSON requests
 app.use(bodyParser.json());
 
+app.get("/", async (req, res) => {
+  res.json("Your server is running successfully 🎉");
+});
+
 app.post("/generate-pdf", async (req, res) => {
   try {
     // Extract data from the request
@@ -60,10 +64,6 @@ app.post("/generate-pdf", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
-  res.json("hello world");
-});
-
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Your server is running successfully 🎉`);
 });
